@@ -9,15 +9,13 @@ public class Disciplina {
     private String descricao;
     private Integer aulasSemana;
 
-    private Object[] professoresMinistrantes;
-    private Object[] salas;
-    private Object[] labs;
-    private Object[] horasSemana;
-    private Object[] turmas;
+    private Professor[] professoresMinistrantes;
+    private Sala[] salas;
+    private Turma[] turmas;
 
 
     public Disciplina(String titulo, Integer codigo, Integer cargaHoraria, String descricao, Integer aulasSemana,
-            Object[] professoresMinistrantes, Object[] salas, Object[] labs, Object[] horasSemana) {
+            Professor[] professoresMinistrantes, Sala[] salas, Sala[] labs) {
         this.titulo = titulo.toUpperCase();
         this.codigo = codigo;
         this.cargaHoraria = cargaHoraria;
@@ -26,7 +24,6 @@ public class Disciplina {
         this.professoresMinistrantes = professoresMinistrantes;
         this.salas = salas;
         this.labs = labs;
-        this.horasSemana = horasSemana;
     }
 
     public String getTitulo() {
@@ -69,7 +66,7 @@ public class Disciplina {
         this.aulasSemana = aulasSemana;
     }
 
-    public Object[] getProfessoresMinistrantes() {
+    public Sala[] getProfessoresMinistrantes() {
         return professoresMinistrantes;
     }
 
@@ -77,7 +74,7 @@ public class Disciplina {
         this.professoresMinistrantes = professoresMinistrantes;
     }
 
-    public Object[] getSalas() {
+    public Sala[] getSalas() {
         return salas;
     }
 
@@ -85,20 +82,12 @@ public class Disciplina {
         this.salas = salas;
     }
 
-    public Object[] getLabs() {
+    public Sala[] getLabs() {
         return labs;
     }
 
     public void setLabs(Object[] labs) {
         this.labs = labs;
-    }
-
-    public Object[] getHorasSemana() {
-        return horasSemana;
-    }
-
-    public void setHorasSemana(Object[] horasSemana) {
-        this.horasSemana = horasSemana;
     }
 
     @Override
@@ -108,9 +97,5 @@ public class Disciplina {
                 + Arrays.toString(professoresMinistrantes) + ", salas=" + Arrays.toString(salas) + ", labs="
                 + Arrays.toString(labs) + ", horasSemana=" + Arrays.toString(horasSemana) + "]";
     }
-
-    
-
-    
 
 }

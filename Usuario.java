@@ -8,16 +8,14 @@ public abstract class Usuario {
     private Integer matricula;
     private String email;
 
-    private Object[] disciplinas;
 
     public Usuario(String nome, Long cpf, Integer matricula, 
-                   String email, Object[] disciplinas) 
+                   String email) 
     {
         this.nome = nome;
         this.cpf = cpf;
         this.matricula = matricula;
         this.email = email;
-        this.disciplinas = disciplinas;
     }
 
     public String getNome() {

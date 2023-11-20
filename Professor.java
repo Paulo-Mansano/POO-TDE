@@ -4,11 +4,11 @@ import java.util.Arrays;
 
 public class Professor extends Usuario{
     private String escola;
-    private boolean alocado = false;
-    private Object[] disciplinas;
+    private Boolean alocado = false;
+    private Disciplina[] disciplinas;
 
-    public Professor(String nome, Long cpf, Integer matricula, String email, Object[] disciplinas, 
-                     String escola, boolean alocado, Object[] disciplinas2) {
+    public Professor(String nome, Long cpf, Integer matricula, String email, Disciplina[] disciplinas, 
+                     String escola, Boolean alocado) {
 
         super(nome, cpf, matricula, email, disciplinas);
         this.escola = escola;
@@ -16,7 +16,7 @@ public class Professor extends Usuario{
             this.alocado = true;
         }
         this.alocado = alocado;
-        disciplinas = disciplinas2;
+        this.disciplinas = disciplinas;
     }
 
     public String getEscola() {
@@ -35,11 +35,11 @@ public class Professor extends Usuario{
         this.alocado = alocado;
     }
 
-    public Object[] getDisciplinas() {
+    public Disciplina[] getDisciplinas() {
         return disciplinas;
     }
 
-    public void setDisciplinas(Object[] disciplinas) {
+    public void setDisciplinas(Disciplina[] disciplinas) {
         this.disciplinas = disciplinas;
     }
 

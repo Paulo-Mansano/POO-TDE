@@ -1,12 +1,15 @@
 package TDEPOO;
 
+import java.util.Arrays;
+
 public class Turma extends Disciplina{
     private Integer vagas;
     private Boolean lotada;
+    private Sala[] labs;
 
     public Turma(String titulo, Integer codigo, Integer cargaHoraria, String descricao, Integer aulasSemana,
-            Object[] professoresMinistrantes, Object[] salas, Object[] labs, Object[] horasSemana, Integer vagas) {
-        super(titulo, codigo, cargaHoraria, descricao, aulasSemana, professoresMinistrantes, salas, labs, horasSemana);
+            Professor[] professoresMinistrantes, Sala[] salas, Sala[] labs, Integer vagas) {
+        super(titulo, codigo, cargaHoraria, descricao, aulasSemana, professoresMinistrantes, salas, labs);
         
         this.vagas = vagas;
         this.lotada = false;
@@ -28,6 +31,27 @@ public class Turma extends Disciplina{
             this.lotada = true;
         }
     }
+
+    public Boolean getLotada() {
+        return lotada;
+    }
+
+    public void setLotada(Boolean lotada) {
+        this.lotada = lotada;
+    }
+
+    public Sala[] getLabs() {
+        return labs;
+    }
+
+    public void setLabs(Sala[] labs) {
+        this.labs = labs;
+    }
+
+    @Override
+    public String toString() {
+        return "Turma [vagas=" + vagas + ", lotada=" + lotada + ", labs=" + Arrays.toString(labs) + "]";
+    }  
 
     
 
