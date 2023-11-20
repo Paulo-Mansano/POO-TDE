@@ -1,5 +1,3 @@
-package TDEPOO;
-
 import java.util.Arrays;
 
 public class Disciplina {
@@ -19,11 +17,16 @@ public class Disciplina {
         this.titulo = titulo.toUpperCase();
         this.codigo = codigo;
         this.cargaHoraria = cargaHoraria;
-        this.descricao = descricao.toUpperCase();
+
+        if (descricao == null) {
+            this.descricao = "Não possui descrição.";
+        } else {
+            this.descricao = descricao.toUpperCase();
+        }
+        
         this.aulasSemana = aulasSemana;
         this.professoresMinistrantes = professoresMinistrantes;
         this.salas = salas;
-        this.labs = labs;
     }
 
     public String getTitulo() {
@@ -66,11 +69,11 @@ public class Disciplina {
         this.aulasSemana = aulasSemana;
     }
 
-    public Sala[] getProfessoresMinistrantes() {
+    public Professor[] getProfessoresMinistrantes() {
         return professoresMinistrantes;
     }
 
-    public void setProfessoresMinistrantes(Object[] professoresMinistrantes) {
+    public void setProfessoresMinistrantes(Professor[] professoresMinistrantes) {
         this.professoresMinistrantes = professoresMinistrantes;
     }
 
@@ -78,24 +81,18 @@ public class Disciplina {
         return salas;
     }
 
-    public void setSalas(Object[] salas) {
+    public void setSalas(Sala[] salas) {
         this.salas = salas;
-    }
-
-    public Sala[] getLabs() {
-        return labs;
-    }
-
-    public void setLabs(Object[] labs) {
-        this.labs = labs;
     }
 
     @Override
     public String toString() {
         return "Disciplina [titulo=" + titulo + ", codigo=" + codigo + ", cargaHoraria=" + cargaHoraria + ", descricao="
                 + descricao + ", aulasSemana=" + aulasSemana + ", professoresMinistrantes="
-                + Arrays.toString(professoresMinistrantes) + ", salas=" + Arrays.toString(salas) + ", labs="
-                + Arrays.toString(labs) + ", horasSemana=" + Arrays.toString(horasSemana) + "]";
+                + Arrays.toString(professoresMinistrantes) + ", salas=" + Arrays.toString(salas) + ", turmas="
+                + Arrays.toString(turmas) + "]";
     }
+
+    
 
 }

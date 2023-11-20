@@ -1,5 +1,3 @@
-package TDEPOO;
-
 import java.util.Arrays;
 
 public class Turma extends Disciplina{

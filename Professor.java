@@ -1,8 +1,7 @@
-package TDEPOO;
-
 import java.util.Arrays;
 
 public class Professor extends Usuario{
+    private String emailAcad;
     private String escola;
     private Boolean alocado = false;
     private Disciplina[] disciplinas;
@@ -10,7 +9,14 @@ public class Professor extends Usuario{
     public Professor(String nome, Long cpf, Integer matricula, String email, Disciplina[] disciplinas, 
                      String escola, Boolean alocado) {
 
-        super(nome, cpf, matricula, email, disciplinas);
+        super(nome, cpf, matricula, email);
+
+        if (emailAcad == null && super.getNome() != null) {
+            this.emailAcad = super.getNome() + "@educacorp.com";
+        } else {
+            this.emailAcad = emailAcad;
+        }
+
         this.escola = escola;
         if (disciplinas != null) {
             this.alocado = true;
@@ -45,10 +51,12 @@ public class Professor extends Usuario{
 
     @Override
     public String toString() {
-        return "Professor [escola=" + escola + 
-               ", alocado=" + alocado + ", disciplinas=" 
-               + Arrays.toString(disciplinas) + getNome() + "]";
+        return super.toString() + "\nTipo: Professor" + 
+        "\nEmailAcad: " + emailAcad + "\nEscola: " + escola +
+        "\nAlocado: " + alocado + "\nDisciplinas: " + Arrays.toString(disciplinas);
     }
+
+    
   
     
 }
