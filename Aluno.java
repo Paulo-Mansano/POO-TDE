@@ -14,7 +14,8 @@ public class Aluno extends Usuario {
     private ArrayList<Sala> salas = new ArrayList<>();
 
     public Aluno(String nome, Long cpf, Integer matricula, String email, String emailAcad,
-            ArrayList<Turma> turma, ArrayList<Disciplina> disciplina, ArrayList<Sala> salas) {
+        ArrayList<Turma> turma, ArrayList<Disciplina> disciplina, ArrayList<Sala> salas) {
+
 
         super(nome, cpf, matricula, email);
 
@@ -51,10 +52,6 @@ public class Aluno extends Usuario {
 
     public void setCurso(String curso) {
         this.curso = curso;
-    }
-
-    public String getTurma() {
-        return turma.toString();
     }
 
     public String getDisciplinas() {
@@ -122,10 +119,57 @@ public class Aluno extends Usuario {
         }
     }
 
+    public void realocarTurma(Turma turmaAtual, Turma novaTurma) {
+        if (turmaAtual != null && novaTurma != null) {
+            // Verifica se o aluno está atualmente matriculado na turma que será realocada
+            if (turma.contains(turmaAtual)) {
+                // Remove a turma atual da lista
+                turma.remove(turmaAtual);
+
+                // Adiciona a nova turma à lista
+                turma.add(novaTurma);
+
+                System.out.println("Turma realocada com sucesso!");
+            } else {
+                System.out.println("O aluno não está matriculado na turma atual. Não é possível realocar.");
+            }
+        } else {
+            System.out.println("Turma atual ou nova turma é nula. Não é possível realizar a realocação.");
+        }
+    }
+    
+    // Método para remover uma turma específica da lista de turmas
+    public void removerTurma(Turma turmaRemover) {
+        if (turmaRemover != null) {
+            if (turma.contains(turmaRemover)) {
+                turma.remove(turmaRemover);
+                System.out.println("Turma removida com sucesso!");
+            } else {
+                System.out.println("O aluno não está matriculado na turma especificada. Não é possível remover.");
+            }
+        } else {
+            System.out.println("Turma a ser removida é nula. Não é possível remover.");
+        }
+    }
+
+    public String getTurmas() {
+        if (turma.isEmpty()) {
+            return "O aluno não está matriculado em nenhuma turma.";
+        }
+    
+        StringBuilder turmaString = new StringBuilder("Turmas do Aluno:\n");
+    
+        for (Turma t : turma) {
+            turmaString.append("ID: ").append(t.getId()).append(", Nome: ").append(t.getId()).append("\n");
+        }
+    
+        return turmaString.toString();
+    }
+
     @Override
     public String toString() {
-        return "Aluno [emailAcad=" + emailAcad + ", turma=" + turma.toString() +
-        ", disciplina=" + disciplina.toString() + ", salas=" + salas.toString() + "]";
+        return "Aluno [emailAcad=" + emailAcad + ", curso=" + curso + ", turma=" + turma.toString() +
+            ", disciplina=" + disciplina.toString() + ", salas=" + salas.toString() + "]";
     }
 
     

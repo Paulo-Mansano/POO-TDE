@@ -2,6 +2,10 @@ import java.util.ArrayList;
 
 public class Curso {
     private String titulo;
+    private final Integer LIMITE_ALUNOS = 200;
+    private Integer alunosVinculados;
+    private Integer vagasRestantes;
+
     private ArrayList<Aluno> alunos = new ArrayList<>();
 
     public Curso(String titulo) {
@@ -25,6 +29,13 @@ public class Curso {
         if (aluno != null) {
             alunos.add(aluno);
         }
+    }
+
+    public Integer getAlunosVinculado() {
+        return (alunos.size());
+    }
+    public Integer getVagasRestantes() {
+        return (this.LIMITE_ALUNOS - alunos.size());
     }
 
     
