@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class Aluno extends Usuario {
@@ -9,28 +8,24 @@ public class Aluno extends Usuario {
 
     private String emailAcad;
     private String curso;
-    private ArrayList<Turma> turma = new ArrayList<>();
-    private ArrayList<Disciplina> disciplina = new ArrayList<>();
-    private ArrayList<Sala> salas = new ArrayList<>();
+    private List<Turma> turmas = new ArrayList<>();
+    private List<Disciplina> disciplinas = new ArrayList<>();
+    private List<Sala> salas = new ArrayList<>();
 
-    public Aluno(String nome, Long cpf, Integer matricula, String email, String emailAcad,
-        ArrayList<Turma> turma, ArrayList<Disciplina> disciplina, ArrayList<Sala> salas) {
-
-
+    public Aluno(String nome, Long cpf, Integer matricula, String email, String emailAcad, Curso curso,
+                 List<Disciplina> disciplinas, List<Turma> turmas, List<Sala> salas) {
         super(nome, cpf, matricula, email);
 
-        this.emailAcad = (emailAcad == null && super.getNome() != null) ? super.getNome().toLowerCase() + "@educorp.com"
+        this.emailAcad = (emailAcad == null && super.getNome() != null)
+                ? super.getNome().toLowerCase() + "@educorp.com"
                 : emailAcad;
 
-                this.emailAcad = (emailAcad == null && super.getNome() != null) ? super.getNome().toLowerCase() + "@educorp.com"
-                : emailAcad;
-
-        if (turma != null) {
-            this.turma.addAll(turma);
+        if (turmas != null) {
+            this.turmas.addAll(turmas);
         }
 
-        if (disciplina != null) {
-            this.disciplina.addAll(disciplina);
+        if (disciplinas != null) {
+            this.disciplinas.addAll(disciplinas);
         }
 
         if (salas != null) {
@@ -54,81 +49,60 @@ public class Aluno extends Usuario {
         this.curso = curso;
     }
 
-    public String getDisciplinas() {
-        return disciplina.toString();
-    }
-
-    public String getSala() {
-        return salas.toString();
+    public List<Turma> getTurmas() {
+        return turmas;
     }
 
     public void addTurma(Turma novaTurma) {
-        if (turma != null) {
-            if (turma.size() < MAX_TURMAS) { // Defina MAX_TURMAS como a quantidade máxima permitida de turmas
-                turma.add(novaTurma);
-                System.out.println("Turma adicionada com sucesso!");
-            } else {
-                System.out.println("Limite de turmas atingido. Não foi possível adicionar a turma.");
-            }
+        if (turmas.size() < MAX_TURMAS) {
+            turmas.add(novaTurma);
+            System.out.println("Turma adicionada com sucesso!");
         } else {
-            System.out.println("Erro: Lista de turmas não inicializada.");
+            System.out.println("Limite de turmas atingido. Não foi possível adicionar a turma.");
         }
     }
 
     public Disciplina getDisciplina(int posicao) {
-        if (posicao >= 0 && posicao < disciplina.size()) {
-            return disciplina.get(posicao);
+        if (posicao >= 0 && posicao < disciplinas.size()) {
+            return disciplinas.get(posicao);
         } else {
             System.out.println("Posição inválida.");
-            return null; // Ou lança uma exceção, dependendo do comportamento desejado
+            return null;
         }
     }
 
     public void addDisciplina(Disciplina novaDisciplina) {
-        if (disciplina != null) {
-            if (disciplina.size() < MAX_DISCIPLINAS) { // Defina MAX_disciplinaS como a quantidade máxima permitida de disciplinas
-                disciplina.add(novaDisciplina);
-                System.out.println("disciplina adicionada com sucesso!");
-            } else {
-                System.out.println("Limite de disciplinas atingido. Não foi possível adicionar a disciplina.");
-            }
+        if (disciplinas.size() < MAX_DISCIPLINAS) {
+            disciplinas.add(novaDisciplina);
+            System.out.println("Disciplina adicionada com sucesso!");
         } else {
-            System.out.println("Erro: Lista de disciplinas não inicializada.");
+            System.out.println("Limite de disciplinas atingido. Não foi possível adicionar a disciplina.");
         }
     }
 
     public Sala getSala(int posicao) {
-         if (posicao >= 0 && posicao < salas.size()) {
+        if (posicao >= 0 && posicao < salas.size()) {
             return salas.get(posicao);
         } else {
             System.out.println("Posição inválida.");
-            return null; // Ou lança uma exceção, dependendo do comportamento desejado
+            return null;
         }
     }
 
     public void addSala(Sala novaSala) {
-         if (novaSala != null) {
-            if (salas.size() < MAX_SALAS) { // Defina MAX_disciplinaS como a quantidade máxima permitida de disciplinas
-                salas.add(novaSala);
-                System.out.println("disciplina adicionada com sucesso!");
-            } else {
-                System.out.println("Limite de salas atingido. Não foi possível adicionar a sala.");
-            }
+        if (salas.size() < MAX_SALAS) {
+            salas.add(novaSala);
+            System.out.println("Sala adicionada com sucesso!");
         } else {
-            System.out.println("Erro: Lista de salas não inicializado.");
+            System.out.println("Limite de salas atingido. Não foi possível adicionar a sala.");
         }
     }
 
     public void realocarTurma(Turma turmaAtual, Turma novaTurma) {
         if (turmaAtual != null && novaTurma != null) {
-            // Verifica se o aluno está atualmente matriculado na turma que será realocada
-            if (turma.contains(turmaAtual)) {
-                // Remove a turma atual da lista
-                turma.remove(turmaAtual);
-
-                // Adiciona a nova turma à lista
-                turma.add(novaTurma);
-
+            if (turmas.contains(turmaAtual)) {
+                turmas.remove(turmaAtual);
+                turmas.add(novaTurma);
                 System.out.println("Turma realocada com sucesso!");
             } else {
                 System.out.println("O aluno não está matriculado na turma atual. Não é possível realocar.");
@@ -137,12 +111,11 @@ public class Aluno extends Usuario {
             System.out.println("Turma atual ou nova turma é nula. Não é possível realizar a realocação.");
         }
     }
-    
-    // Método para remover uma turma específica da lista de turmas
+
     public void removerTurma(Turma turmaRemover) {
         if (turmaRemover != null) {
-            if (turma.contains(turmaRemover)) {
-                turma.remove(turmaRemover);
+            if (turmas.contains(turmaRemover)) {
+                turmas.remove(turmaRemover);
                 System.out.println("Turma removida com sucesso!");
             } else {
                 System.out.println("O aluno não está matriculado na turma especificada. Não é possível remover.");
@@ -152,25 +125,9 @@ public class Aluno extends Usuario {
         }
     }
 
-    public String getTurmas() {
-        if (turma.isEmpty()) {
-            return "O aluno não está matriculado em nenhuma turma.";
-        }
-    
-        StringBuilder turmaString = new StringBuilder("Turmas do Aluno:\n");
-    
-        for (Turma t : turma) {
-            turmaString.append("ID: ").append(t.getId()).append(", Nome: ").append(t.getId()).append("\n");
-        }
-    
-        return turmaString.toString();
-    }
-
     @Override
     public String toString() {
-        return "Aluno [emailAcad=" + emailAcad + ", curso=" + curso + ", turma=" + turma.toString() +
-            ", disciplina=" + disciplina.toString() + ", salas=" + salas.toString() + "]";
+        return "Aluno: " + getNome()+ "\n[EmailAcad : " + emailAcad + "\nCurso: " + curso + "\nTurmas :" + turmas.toString() +
+            "\nDisciplinas : " + disciplinas.toString() + "\nSalas : " + salas.toString() + "]";
     }
-
-    
 }

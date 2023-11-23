@@ -5,8 +5,6 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.Map.Entry;
 
-import javax.print.DocFlavor.STRING;
-
 public class Main {
     private static int idMapProf = 0;
     private static int idMapAluno = 0;
@@ -66,24 +64,30 @@ public class Main {
                 System.out.println(GESTAO_TURMAS + " - GESTÃO DE TURMAS");
                 System.out.println(GESTAO_DISCIPLINAS + " - GESTÃO DE DISCIPLINAS");
 
+                System.out.printf("OPÇÃO: ");
+
                 selectOut = input.nextInt();
                 etapa += 1;
 
                 switch (selectOut) {
                     case GESTAO_ALUNOS:
+                        etapa+=1;
                         menuGestaoAlunos(input);
                         break;
 
                     case GESTAO_PROFESSORES:
-                        // menuGestaoProfessores(input);
+                        etapa+=1;
+                        menuGestaoProfessores(input);
                         break;
 
                     case GESTAO_TURMAS:
-                        // Implemente a gestão de turmas
+                        etapa+=1;
+                        // menuGestaoTurmas(input);
                         break;
 
                     case GESTAO_DISCIPLINAS:
-                        // Implemente a gestão de disciplinas
+                        etapa+=1;
+                        // menuGestaoProfessores(input);
                         break;
 
                     default:
@@ -105,12 +109,11 @@ public class Main {
         System.out.println("3 - ALOCAÇÃO DE ALUNOS");
         System.out.println("4 - REALOCAÇÃO DE ALUNOS");
         System.out.println("5 - VISUALIZAR ALUNOS");
-        System.out.println("6 - LISTAR ALUNOS");
-        System.out.println("7 - ACESSAR DADOS DE ALUNOS");
-        System.out.println("8 - EDITAR ALUNO");
+        System.out.println("6 - ACESSAR DADOS DE ALUNOS");
+        System.out.println("7 - EDITAR ALUNO");
 
         int idSelecionado;
-
+        System.out.printf("OPÇÃO: ");
         selectIn = input.nextInt();
 
         switch (selectIn) {
@@ -119,26 +122,25 @@ public class Main {
                 break;
 
             case 2:
-                System.out.println("\nALUNOS CADASTRADOS: ");
-                for (Entry<Integer, Aluno> entry : alunos.entrySet()) {
-                    Integer chave = entry.getKey();
-                    Aluno valor = entry.getValue();
-                    System.out.println("ID" + chave + ", Valor: " + valor.toString());
-                }
-
-                // Capturar a entrada do usuário para selecionar um aluno
-                System.out.print("Digite o ID do aluno desejado: ");
-                idSelecionado = input.nextInt();
-                input.nextLine(); // Consumir a quebra de linha após a leitura de int
-
-                // Verificar se o ID selecionado corresponde a um aluno existente
-                if (alunos.containsKey(idSelecionado)) {
-                    Aluno alunoSelecionado = alunos.get(idSelecionado);
-                    // Agora você pode usar 'alunoSelecionado' para realizar a matrícula no curso
-                    System.out.println("Aluno selecionado: " + alunoSelecionado.getNome());
-                    matriculaAluno(alunoSelecionado, cursos, input);
+                if (alunos != null && alunos.size() >= 0 && !(alunos.isEmpty())) {
+                    visualizarAlunos();
+    
+                    // Capturar a entrada do usuário para selecionar um aluno
+                    System.out.print("Digite o ID do aluno desejado: ");
+                    idSelecionado = input.nextInt();
+                    input.nextLine(); // Consumir a quebra de linha após a leitura de int
+    
+                    // Verificar se o ID selecionado corresponde a um aluno existente
+                    if (alunos.containsKey(idSelecionado)) {
+                        Aluno alunoSelecionado = alunos.get(idSelecionado);
+                        // Agora você pode usar 'alunoSelecionado' para realizar a matrícula no curso
+                        System.out.println("Aluno selecionado: " + alunoSelecionado.getNome());
+                        matriculaAluno(alunoSelecionado, cursos, input);
+                    } else {
+                        System.out.println("ID de aluno inválido. Tente novamente.");
+                    }
                 } else {
-                    System.out.println("ID de aluno inválido. Tente novamente.");
+                    throw new NullPointerException("Não há alunos cadastrados.");
                 }
 
                 break;
@@ -147,12 +149,7 @@ public class Main {
                 alocacaoAluno(input);
                 break;
             case 4:
-                System.out.println("\nALUNOS CADASTRADOS: ");
-                for (Entry<Integer, Aluno> entry : alunos.entrySet()) {
-                    Integer chave = entry.getKey();
-                    Aluno valor = entry.getValue();
-                    System.out.println("ID" + chave + ", Valor: " + valor.toString());
-                }
+                visualizarAlunos();
 
                 // Capturar a entrada do usuário para selecionar um aluno
                 System.out.print("Digite o ID do aluno desejado: ");
@@ -165,27 +162,66 @@ public class Main {
                     // Agora você pode usar 'alunoSelecionado' para realizar a matrícula no curso
                     System.out.println("Aluno selecionado: " + alunoSelecionado.getNome());
                     matriculaAluno(alunoSelecionado, cursos, input);
+                    realocacaoAluno(input);
                 } else {
                     System.out.println("ID de aluno inválido. Tente novamente.");
                 }
-                realocacaoAluno(input);
+                break;
             case 5:
+                visualizarAlunos();
                 break;
 
             case 6:
+                visualizarAlunos();
+
+                // Capturar a entrada do usuário para selecionar um aluno
+                System.out.printf("Digite o ID do aluno desejado: ");
+                idSelecionado = input.nextInt();
+                input.nextLine(); // Consumir a quebra de linha após a leitura de int
+
+                // Verificar se o ID selecionado corresponde a um aluno existente
+                if (alunos.containsKey(idSelecionado)) {
+                    Aluno alunoSelecionado = alunos.get(idSelecionado);
+                    // Agora você pode usar 'alunoSelecionado' para realizar a matrícula no curso
+                    System.out.println("Dados: [\n" + alunoSelecionado.toString() + "]");
+                }
                 break;
 
             case 7:
+                editarAluno(input);
                 break;
-
-            case 8:
-                break;
-            // ... outros casos
 
             default:
                 System.out.println("Opção inválida. Tente novamente.");
                 break;
         }
+    }
+
+    public static void menuGestaoProfessores(Scanner input) {
+        int selectIn = 0;
+
+        System.out.println("\n1 - CADASTRO DE PROFESSORES");
+        System.out.println("2 - ALOCAÇÃO DE PROFESSORES");
+        System.out.println("3 - REALOCAÇÃO DE PROFESSORES");
+        System.out.println("4 - VISUALIZAR PROFESSORES");
+        System.out.println("5 - ACESSAR DADOS DE PROFESSORES");
+        System.out.println("6 - EDITAR PROFESSORES");
+
+        int idSelecionado;
+        System.out.printf("OPÇÃO: ");
+        selectIn = input.nextInt();
+
+        switch (selectIn) {
+            case 1:
+                cadastroProfessor(input);
+                break;
+        
+            default:
+                break;
+        }
+
+
+
     }
 
     public static void cadastroAluno(Scanner input) {
@@ -212,8 +248,8 @@ public class Main {
         System.out.printf("\nEMAIL ACADÊMICO: ");
         String emailAcad = input.nextLine();
 
-        Aluno aluno = new Aluno(nomeCompleto, cpf, matricula, email, emailAcad, null, null, null);
-
+        Aluno aluno = new Aluno(nomeCompleto, cpf, matricula, email, emailAcad, null, null, null, null);
+        alunos.put(matricula, aluno);
         if (turmas != null) {
 
             System.out.println("\nTURMA DISPONÍVEIS: ");
@@ -357,12 +393,7 @@ public class Main {
 
     public static void realocacaoAluno(Scanner input) {
         // Exibir a lista de alunos cadastrados
-        System.out.println("\nALUNOS CADASTRADOS: ");
-        for (Entry<Integer, Aluno> entry : alunos.entrySet()) {
-            Integer chave = entry.getKey();
-            Aluno valor = entry.getValue();
-            System.out.println("ID" + chave + ", Valor: " + valor.toString());
-        }
+        visualizarAlunos();
 
         // Capturar a entrada do usuário para selecionar um aluno para realocação
         System.out.print("Digite o ID do aluno que deseja realocar: ");
@@ -416,11 +447,53 @@ public class Main {
 
     }
 
-    public static void visualizarAluno(Aluno a, Scanner input) {
+    public static void editarAluno(Scanner input) {
+       visualizarAlunos();
 
+        System.out.print("Digite o ID do aluno que deseja editar: ");
+        int idAluno = input.nextInt();
+        input.nextLine(); // Consumir a quebra de linha após a leitura de int
+
+        // Verificar se o ID selecionado corresponde a um aluno existente
+        if (alunos.containsKey(idAluno)) {
+            Aluno alunoParaEditar = alunos.get(idAluno);
+            // Exibir o aluno selecionado
+            System.out.println("Aluno selecionado para edição: " + alunoParaEditar.getNome());
+
+            // Agora você pode permitir a edição de diferentes campos do aluno, por exemplo:
+            System.out.print("Digite o novo nome do aluno (ou pressione Enter para manter o mesmo): ");
+            String novoNome = input.nextLine();
+            if (!novoNome.isEmpty()) {
+                alunoParaEditar.setNome(novoNome);
+            }
+
+            System.out.print("Digite o novo email do aluno (ou pressione Enter para manter o mesmo): ");
+            String novoEmail = input.nextLine();
+            if (!novoEmail.isEmpty()) {
+                alunoParaEditar.setEmail(novoEmail);
+            }
+
+            System.out.print("Digite o novo email acadêmico do aluno (ou pressione Enter para manter o mesmo): ");
+            String novoEmailAcad = input.nextLine();
+            if (!novoEmailAcad.isEmpty()) {
+                alunoParaEditar.setEmailAcad(novoEmailAcad);
+            }
+
+            // Adicione outros campos conforme necessário
+
+            System.out.println("Dados do aluno atualizados com sucesso: " + alunoParaEditar.toString());
+        } else {
+            System.out.println("ID de aluno inválido. Não foi possível realizar a edição.");
+        }
     }
 
-    public static void listarAlunos() {
+    public static void visualizarAlunos() {
+        System.out.println("\nALUNOS CADASTRADOS: ");
+        for (Entry<Integer, Aluno> entry : alunos.entrySet()) {
+            Integer chave = entry.getKey();
+            Aluno valor = entry.getValue();
+            System.out.println("ID" + chave + ", Valor: " + valor.toString());
+        }
 
     }
 
@@ -433,6 +506,48 @@ public class Main {
     }
 
     public static void cadastroProfessor(Scanner input) {
+        System.out.printf("INICIANDO CADASTRO DE PROFESSOR...\n\n");
+        System.out.printf("\nNOME: ");
+        String nomeCompleto = input.nextLine();
+        input.nextLine();
+
+        System.out.printf("\nCPF: ");
+        Long cpf = input.nextLong();
+        input.nextLine(); // Consumir a quebra de linha após a leitura de long
+
+        System.out.printf("\nMATRICULA (3 DÍGITOS):");
+        Integer matricula = input.nextInt();
+        input.nextLine(); // Consumir a quebra de linha após a leitura de int
+
+        System.out.printf("\nEMAIL: ");
+        String email = input.nextLine();
+
+        System.out.printf("\nEMAIL ACADÊMICO: ");
+        String emailAcad = input.nextLine();
+
+        Professor professor = new Professor(nomeCompleto, cpf, matricula, email, null, emailAcad);
+        professores.put(matricula, professor);
+
+        if (disciplinas != null && disciplinas.size() >= 0 && !(disciplinas.isEmpty())) {
+            System.out.println("\nDISCIPLINAS DISPONÍVEIS: ");
+            for (Entry<Integer, Disciplina> entry : disciplinas.entrySet()) {
+                Integer chave = entry.getKey();
+                Disciplina valor = entry.getValue();
+                System.out.println("ID" + chave + ", Valor: " + valor.toString());
+            }
+
+            System.out.println("SELECIONE O ID PARA A DISCIPLINA QUE O USUÁRIO SERÁ VINCULADO: ");
+            Integer idSelect = input.nextInt();
+
+            // Verifica se a turma existe antes de vincular o aluno
+            if (disciplinas.containsKey(idSelect)) {
+                professor.addDisciplina(disciplinas.get(idSelect));
+                System.out.println("Aluno vinculado à disciplina com sucesso!");
+            } else {
+                System.out.println("ID de disciplina inválido. Não foi possível vincular o aluno.");
+            }
+
+        }
 
     }
 
@@ -445,10 +560,17 @@ public class Main {
     }
 
     public static void visualizarProfessores() {
-
-    }
-
-    public static void listarProfessores() {
+        if (professores != null) {
+            System.out.println("\nPROFESSORES CADASTRADOS: ");
+            for (Entry<Integer, Professor> entry : professores.entrySet()) {
+                Integer chave = entry.getKey();
+                Professor valor = entry.getValue();
+                System.out.println("ID" + chave + ", Valor: " + valor.toString());
+            }
+                
+        } else {
+            throw new NullPointerException("Professores não pode estar vazia.");
+        }
 
     }
 
@@ -459,5 +581,18 @@ public class Main {
     public static void editarProfessor(Professor f, Scanner input) {
 
     }
+
+    public static void visualizarDisciplinas() {
+        if (disciplinas != null) {
+            System.out.println("\nDISCIPLINAS DISPONÍVEIS: ");
+            for (Entry<Integer, Disciplina> entry : disciplinas.entrySet()) {
+                Integer chave = entry.getKey();
+                Disciplina valor = entry.getValue();
+                System.out.println("ID" + chave + ", Valor: " + valor.toString());
+            }
+                
+        } else {
+            throw new NullPointerException("Displinas não pode estar vazia.");
+        }
+    }
 }
-    

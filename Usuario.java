@@ -1,27 +1,23 @@
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
 
 public abstract class Usuario {
-    static Set<Integer> matriculasGeradas = new HashSet<>();
+    static final Set<Integer> matriculasGeradas = new HashSet<>();
     private String nome;
     private Long cpf;
     private Integer matricula;
     private String email;
 
-
-
-    public Usuario(String nome, Long cpf, Integer matricula, 
-                   String email) 
-    {
+    public Usuario(String nome, Long cpf, Integer matricula, String email) {
         this.nome = nome;
         this.cpf = cpf;
 
         if (matricula == null) {
             this.matricula = gerarMatricula();
+        } else {
+            this.matricula = matricula;
         }
-        this.matricula = matricula;
         this.email = email;
     }
 
@@ -37,54 +33,43 @@ public abstract class Usuario {
         return matricula;
     }
 
-
     public String getNome() {
         return nome;
     }
-
 
     public void setNome(String nome) {
         this.nome = nome;
     }
 
-
     public Long getCpf() {
         return cpf;
     }
-
 
     public void setCpf(Long cpf) {
         this.cpf = cpf;
     }
 
-
     public Integer getMatricula() {
         return matricula;
     }
-
 
     public void setMatricula(Integer matricula) {
         this.matricula = matricula;
     }
 
-
     public String getEmail() {
         return email;
     }
-
 
     public void setEmail(String email) {
         this.email = email;
     }
 
-
     @Override
     public String toString() {
-        return "Usuario - Visão Geral \n" + 
-        "Nome: " + nome + "\nCPF: " + cpf + 
-        "\nMatricula: " + matricula + "\nEmail: " + email;
+        return "Usuario - Visão Geral \n" +
+                "Nome: " + nome + "\nCPF: " + cpf +
+                "\nMatricula: " + matricula + "\nEmail: " + email;
     }
 
-    
-    
 }
