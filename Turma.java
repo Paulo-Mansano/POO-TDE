@@ -1,6 +1,7 @@
 import java.util.Arrays;
 
 public class Turma extends Disciplina{
+    private Integer id;
     private Integer vagas;
     private Boolean lotada;
     private Sala[] labs;

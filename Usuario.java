@@ -4,12 +4,12 @@ import java.util.Random;
 import java.util.Set;
 
 public abstract class Usuario {
+    static Set<Integer> matriculasGeradas = new HashSet<>();
     private String nome;
     private Long cpf;
     private Integer matricula;
     private String email;
 
-    private Set<Integer> matriculasGeradas = new HashSet<>();
 
 
     public Usuario(String nome, Long cpf, Integer matricula, 
