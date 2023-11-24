@@ -16,7 +16,7 @@ public class Aluno extends Usuario {
                  List<Disciplina> disciplinas, List<Turma> turmas, List<Sala> salas) {
         super(nome, cpf, matricula, email);
 
-        this.emailAcad = (emailAcad == null && super.getNome() != null)
+        this.emailAcad = (emailAcad == null || emailAcad.isEmpty())
                 ? super.getNome().toLowerCase() + "@educorp.com"
                 : emailAcad;
 

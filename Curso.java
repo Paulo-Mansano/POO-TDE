@@ -17,30 +17,25 @@ public class Curso {
         this.titulo = titulo;
     }
 
-    public String getAlunos() {
+    public String listarAlunos() {
+        // Retornar uma representação mais controlada da lista de alunos (por exemplo, formatada)
         return alunos.toString();
     }
 
-    public void setAlunos(ArrayList<Aluno> alunos) {
-        this.alunos = alunos;
-    }
-
-    public void adicionaAluno(Aluno aluno) {
+    public void adicionarAluno(Aluno aluno) {
         if (aluno != null && alunos.size() < LIMITE_ALUNOS) {
             alunos.add(aluno);
+            System.out.println("Aluno " + aluno.getNome() + " adicionado ao curso " + titulo + ".");
         } else {
-            System.out.println("Limite de alunos atingido. Não foi possível adicionar o aluno.");
+            System.out.println("Limite de alunos atingido para o curso " + titulo + ". Não foi possível adicionar o aluno.");
         }
     }
 
-    public int getAlunosVinculados() {
+    public int getNumeroAlunos() {
         return alunos.size();
     }
 
     public int getVagasRestantes() {
         return LIMITE_ALUNOS - alunos.size();
     }
-    
-
-
 }

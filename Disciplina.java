@@ -1,29 +1,38 @@
-import java.util.List;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Disciplina {
-    private final String titulo;
-    private final Integer codigo;
-    private final Integer cargaHoraria;
-    private final String descricao;
-    private final Integer aulasSemana;
+    private String titulo;
+    private Integer codigo;
+    private Integer cargaHoraria;
+    private String descricao;
+    private Integer aulasSemana;
 
-    private final List<Professor> professoresMinistrantes;
-    private final List<Sala> salas;
-    private final List<Turma> turmas;
+    private ArrayList<Professor> professoresMinistrantes = new ArrayList<>();
+    private ArrayList<Sala> salas = new ArrayList<>();
+    private ArrayList<Turma> turmas = new ArrayList<>();
 
     // Construtor da classe Disciplina
     public Disciplina(String titulo, Integer codigo, Integer cargaHoraria, String descricao, Integer aulasSemana,
-            Professor[] professoresMinistrantes, Sala[] salas2, Sala[] labs) {
+                      Professor[] professoresMinistrantes, Sala[] salas2, Sala[] labs) {
         this.titulo = (titulo != null) ? titulo.toUpperCase() : null;
         this.codigo = (codigo != null && codigo > 0) ? codigo : null;
         this.cargaHoraria = (cargaHoraria != null && cargaHoraria > 0) ? cargaHoraria : null;
         this.descricao = (descricao != null) ? descricao.toUpperCase() : "Não possui descrição.";
         this.aulasSemana = (aulasSemana != null && aulasSemana > 0) ? aulasSemana : null;
 
-        // Inicialização das listas mantendo as referências originais
-        this.professoresMinistrantes = (professoresMinistrantes != null) ? List.of(professoresMinistrantes) : List.of();
-        this.salas = (salas2 != null) ? List.of(salas2) : List.of();
-        this.turmas = (labs != null) ? List.of(labs) : List.of();
+        // Inicialização das listas
+        if (professoresMinistrantes != null) {
+            this.professoresMinistrantes.addAll(Arrays.asList(professoresMinistrantes));
+        }
+
+        if (salas2 != null) {
+            this.salas.addAll(Arrays.asList(salas2));
+        }
+
+        if (labs != null) {
+            this.turmas.addAll(Arrays.asList(labs));
+        }
     }
 
     public String getTitulo() {
@@ -46,15 +55,19 @@ public class Disciplina {
         return aulasSemana;
     }
 
-    public List<Professor> getProfessoresMinistrantes() {
+    public ArrayList<Professor> getProfessoresMinistrantes() {
         return professoresMinistrantes;
     }
 
-    public List<Sala> getSalas() {
+    public void setNewProfMinistrante(Professor professor) {
+        professoresMinistrantes.add(professor);
+    } 
+
+    public ArrayList<Sala> getSalas() {
         return salas;
     }
 
-    public List<Turma> getTurmas() {
+    public ArrayList<Turma> getTurmas() {
         return turmas;
     }
 

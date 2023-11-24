@@ -1,18 +1,18 @@
 import java.util.ArrayList;
 
 public class Turma extends Disciplina {
-    private final Integer MAX_VAGAS = 60;
-
     private Integer id;
     private Integer vagas;
+    private Integer vagasLocadas;
     private ArrayList<Aluno> alunos = new ArrayList<>();
+    private Professor professor;
     private Boolean lotada;
 
 
     public Turma(String titulo, Integer codigo, Integer cargaHoraria, String descricao, Integer aulasSemana,
             Professor[] professoresMinistrantes, Sala[] salas, Sala[] labs) {
         super(titulo, codigo, cargaHoraria, descricao, aulasSemana, professoresMinistrantes, salas, labs);
-        this.vagas = MAX_VAGAS;
+        this.vagas = vagas;
         this.lotada = false;
 
         if (this.alunos.size() >= this.vagas) {
@@ -28,8 +28,8 @@ public class Turma extends Disciplina {
         this.vagas = vagas;
     }
 
-    public void decVagas() {
-        this.vagas = vagas - 1;
+    public void incVagas() {
+        this.vagas += 1;
 
         if (this.vagas == 0) {
             this.lotada = true;
@@ -49,11 +49,31 @@ public class Turma extends Disciplina {
     }
 
     public Integer getVagasRestantes() {
-        return this.MAX_VAGAS - this.vagas;
+        return this.vagas - this.vagasLocadas;
     }
 
     public Integer getId() {
         return this.id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Professor getProfessor() {
+        return professor;
+    }
+
+    public void setProfessor(Professor professor) {
+        this.professor = null;
+        this.professor = professor;
+    }
+
+    public ArrayList<Aluno> getAlunos() {
+        if (alunos != null && alunos.size() > 0) {
+            return this.alunos;
+        }
+        return null;
     }
 
     public void adicionaAluno(Aluno aluno) {

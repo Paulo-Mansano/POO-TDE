@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 
 public class Professor extends Usuario {
@@ -5,6 +6,7 @@ public class Professor extends Usuario {
     private String escola;
     private boolean alocado;
     private List<Disciplina> disciplinas;
+    private ArrayList<Turma> turmas = new ArrayList<>();
 
     public Professor(String nome, Long cpf, Integer matricula, String email, List<Disciplina> disciplinas,
                      String escola) {
@@ -33,6 +35,10 @@ public class Professor extends Usuario {
         return alocado;
     }
 
+    public void setEmailAcad(String emailAcad) {
+        this.emailAcad = emailAcad;
+    }
+
     public List<Disciplina> getDisciplinas() {
         return disciplinas;
     }
@@ -42,6 +48,20 @@ public class Professor extends Usuario {
     }
 
 
+    public void setTurmas(Turma turma) {
+        this.turmas.add(turma);
+    }
+
+    public ArrayList<Turma> getTurmas() {
+        return turmas;
+    }
+
+    public void realocarTurma(Turma turmaAtual, Turma novaTurma) {
+        if (turmas.contains(turmaAtual)) {
+            int indexTurmaAtual = turmas.indexOf(turmaAtual);
+            turmas.add(indexTurmaAtual, novaTurma);
+        }
+    }
 
     @Override
     public String toString() {
