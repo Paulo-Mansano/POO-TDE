@@ -12,7 +12,7 @@ public class Aluno extends Usuario {
     private List<Disciplina> disciplinas = new ArrayList<>();
     private List<Sala> salas = new ArrayList<>();
 
-    public Aluno(String nome, Long cpf, Integer matricula, String email, String emailAcad, Curso curso,
+    public Aluno(String nome, String cpf, Integer matricula, String email, String emailAcad, Curso curso,
                  List<Disciplina> disciplinas, List<Turma> turmas, List<Sala> salas) {
         super(nome, cpf, matricula, email);
 

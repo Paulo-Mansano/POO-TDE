@@ -5,11 +5,11 @@ import java.util.Set;
 public abstract class Usuario {
     static final Set<Integer> matriculasGeradas = new HashSet<>();
     private String nome;
-    private Long cpf;
+    private String cpf;
     private Integer matricula;
     private String email;
 
-    public Usuario(String nome, Long cpf, Integer matricula, String email) {
+    public Usuario(String nome, String cpf, Integer matricula, String email) {
         this.nome = nome;
         this.cpf = cpf;
 
@@ -41,11 +41,11 @@ public abstract class Usuario {
         this.nome = nome;
     }
 
-    public Long getCpf() {
+    public String getCpf() {
         return cpf;
     }
 
-    public void setCpf(Long cpf) {
+    public void setCpf(String cpf) {
         this.cpf = cpf;
     }
 

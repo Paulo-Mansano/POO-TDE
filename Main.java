@@ -197,27 +197,44 @@ public class Main {
         } catch (Exception e) {
             // TODO: handle exception
         }
-        System.out.printf("INICIANDO CADASTRO DE ALUNO...\n\n");
-        System.out.printf("\nNOME: ");
-        String nomeCompleto = input.nextLine();
+        System.out.printf("INICIANDO CADASTRO DE ALUNO...");
 
-        System.out.printf("\nCPF: ");
-        Long cpf = input.nextLong();
-        input.nextLine(); // Consumir a quebra de linha após a leitura de long
+        String nomeCompleto = null;
+        System.out.print("\nNOME (Obrigatório): ");
+        input.nextLine();
+        nomeCompleto = input.nextLine();
+        if (nomeCompleto.isEmpty()) {
+            throw new IllegalArgumentException("Nome não pode ser nulo.");
+        }
 
-        System.out.printf("\nMATRICULA (3 DÍGITOS):");
-        Integer matricula = input.nextInt();
-        input.nextLine(); // Consumir a quebra de linha após a leitura de int
+        String cpf = null;
+        System.out.print("CPF (Obrigatório) : ");
+        cpf = input.nextLine();
 
-        System.out.printf("\nEMAIL: ");
-        String email = input.nextLine();
+        cpf.replace(" ", "");
+        cpf.replace(".", "");
+        cpf.replace("-", "");
+        if (cpf.isEmpty()) {
+            throw new IllegalArgumentException("CPF não pode ser nulo.");
+        }
 
-        System.out.printf("\nEMAIL ACADÊMICO: ");
+        Integer matricula = null;
+        System.out.print("MATRICULA (3 DÍGITOS): ");
+        matricula = input.nextInt();
+        
+        String email = null;
+        System.out.print("EMAIL (Obrigatório): ");
+        email = input.nextLine();
+        if (email.isEmpty()) {
+            throw new IllegalArgumentException("Email não pode ser nulo.");
+        }
+
+        System.out.print("\nEMAIL ACADÊMICO (Opcional): ");
         String emailAcad = input.nextLine();
 
         Aluno aluno = new Aluno(nomeCompleto, cpf, matricula, email, emailAcad, null, null, null, null);
         alunos.put(matricula, aluno);
-        if (turmas != null) {
+        if (turmas != null && turmas.size() > 0) {
 
             System.out.println("\nTURMA DISPONÍVEIS: ");
             for (Entry<Integer, Turma> entry : turmas.entrySet()) {
@@ -531,7 +548,7 @@ public class Main {
         input.nextLine();
 
         System.out.printf("\nCPF: ");
-        Long cpf = input.nextLong();
+        String cpf = input.nextLine();
         input.nextLine(); // Consumir a quebra de linha após a leitura de long
 
         System.out.printf("\nMATRICULA (3 DÍGITOS):");
@@ -919,7 +936,6 @@ public class Main {
                     input.nextLine();
                     turmaSel.setId(idTurmaEdit);
 
-
                     System.out.printf("\nNOVO NÚMERO DE VAGAS: ");
                     Integer newNumVagas = input.nextInt();
                     input.nextLine();
@@ -960,6 +976,19 @@ public class Main {
 
             case 5:
                 visualizarTurmas();
+                System.out.print("DIGITE O ID DA TURMA QUE DESEJA CHECAR A  DISPONIBILIDADE DE VAGAS: ");
+                System.out.printf("OPÇÃO: ");
+                Integer idSelec = input.nextInt();
+                input.nextLine();
+
+                if (turmas.containsKey(idSelec)) {
+                    Turma turmaSelect = turmas.get(idSelec);
+
+                    System.out.println(turmaSelect.getVagasRestantes());
+                    System.out.println(turmaSelect.getLotada());
+                } else {
+                    System.out.println("Opção inválida.");
+                }
             default:
                 break;
         }

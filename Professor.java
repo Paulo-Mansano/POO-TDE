@@ -8,7 +8,7 @@ public class Professor extends Usuario {
     private List<Disciplina> disciplinas;
     private ArrayList<Turma> turmas = new ArrayList<>();
 
-    public Professor(String nome, Long cpf, Integer matricula, String email, List<Disciplina> disciplinas,
+    public Professor(String nome, String cpf, Integer matricula, String email, List<Disciplina> disciplinas,
                      String escola) {
         super(nome, cpf, matricula, email);
 
