@@ -48,8 +48,14 @@ public class Professor extends Usuario {
     }
 
 
-    public void setTurmas(Turma turma) {
+    public boolean setTurmas(Turma turma) {
         this.turmas.add(turma);
+
+        if (this.turmas.contains(turma)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public ArrayList<Turma> getTurmas() {

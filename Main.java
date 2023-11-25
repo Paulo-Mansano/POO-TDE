@@ -881,6 +881,7 @@ public class Main {
                                 && turmaExclusaoAluno.getAlunos().contains(alunoExc)) {
                             turmaExclusaoAluno.getAlunos().remove(alunoExc);
 
+                            // verifica se o aluno foi excluído.
                             if (!turmaExclusaoAluno.getAlunos().contains(alunoExc)) {
                                 System.out.println("Aluno excluido com sucesso!");
                             } else {
@@ -893,9 +894,72 @@ public class Main {
                 }
                 break;
             case 4:
-                break;
-            case 5:
+                visualizarTurmas();
+                System.out.println("Selecione o Id da turma que deseja alterar: ");
+                Integer idTurmaEdit = input.nextInt();
+                input.nextLine();
 
+                if (turmas.containsKey(idTurmaEdit)) {
+                    Turma turmaSel = turmas.get(idTurmaEdit);
+                    System.out.println("Dados gerais da turma: ");
+                    turmaSel.toString();
+
+                    System.out.println("\nINICIANDO EDIÇÃo...");
+                    /*
+                     * private Integer id;
+                     * private Integer vagas;
+                     * private Integer vagasLocadas;
+                     * private ArrayList<Aluno> alunos = new ArrayList<>();
+                     * private Professor professor;
+                     * private Boolean lotada;
+                     */
+
+                    System.out.printf("\n\nNOVO ID: ");
+                    Integer newID = input.nextInt();
+                    input.nextLine();
+                    turmaSel.setId(idTurmaEdit);
+
+
+                    System.out.printf("\nNOVO NÚMERO DE VAGAS: ");
+                    Integer newNumVagas = input.nextInt();
+                    input.nextLine();
+                    turmaSel.setVagas(newNumVagas);
+                    if (turmaSel.setVagas(newNumVagas)) {
+                        System.out.println("Número de vagas alterado com sucesso.");
+                    } else {
+                        System.out.println("Operação falhou.");
+                    }
+
+                    System.out.printf("NOVO PROFESSOR: \n");
+                    System.out.println("SELECIONE UM DOS PROFESSORES EXISTENTES PARA ALTERA-LO PARA ESTA TURMA:");
+                    visualizarProfessores();
+
+                    System.out.printf("Digite o Id do Professor desejado para o novo professor da turma: ");
+                    Integer idProf = input.nextInt();
+                    input.nextLine();
+
+                    if (professores.containsKey(idProf)) {
+                        Professor profAlocacao = professores.get(idProf);
+
+                        turmaSel.setProfessor(profAlocacao);
+                        if (turmaSel.getProfessor().equals(profAlocacao)) {
+                            profAlocacao.setTurmas(turmaSel);
+
+                            if (profAlocacao.setTurmas(turmaSel)) {
+                                System.out.println("Professor alterado com sucesso!");
+                                System.out.println("Visualizando dados pós alteração...\n");
+
+                                turmas.get(profAlocacao).toString();
+                            } else {
+                                System.out.println("Operação falhou.");
+                            }
+                        }
+                    }
+                }
+                break;
+
+            case 5:
+                visualizarTurmas();
             default:
                 break;
         }

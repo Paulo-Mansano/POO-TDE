@@ -24,8 +24,16 @@ public class Turma extends Disciplina {
         return vagas;
     }
 
-    public void setVagas(Integer vagas) {
+    public boolean setVagas(Integer vagas) {
+        int controle = this.vagas;
+
         this.vagas = vagas;
+
+        if (this.vagas == controle) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public void incVagas() {
@@ -41,7 +49,11 @@ public class Turma extends Disciplina {
     }
 
     public void setLotada() {
-        this.lotada = true;
+        if (alunos.size() >= this.vagas) {
+            this.lotada = true;            
+        } else {
+            this.lotada = true;
+        }
     }
 
     public void setVagas() {
@@ -82,5 +94,15 @@ public class Turma extends Disciplina {
         }
     }
 
+    @Override
+    public String toString() {
+        String lotadaString = "Não";
+        if (this.lotada == true) {
+            lotadaString = "Sim";
+        }
+        return "Turma [Id : " + id + "\nVagas : " + vagas + "\nVagas Locadas : " + vagasLocadas + "\nAlunos: [" + alunos.toString() + "]\n"
+                + "\nProfessor : " + professor + "znLotada : " + lotadaString + "]";
+    }
 
+    
 }
